@@ -34,11 +34,20 @@ git clone git@github.com:nicolasvonluetzow/linear-splatting.git --recursive
 
 
 ## Setup
-Our setup is tested only for Ubuntu Linux 20.04 - if you run into any issues please go check out the helpful information in the [3DGS repository](https://github.com/graphdeco-inria/gaussian-splatting), which is most likely applicable. Use conda to create and activate an environment:
+Our setup is tested only for Ubuntu Linux 20.04 - if you run into any issues please go check out the helpful information in the [3DGS repository](https://github.com/graphdeco-inria/gaussian-splatting). We found a pip-based, step-by-step install (similarly used by Mip-Splatting) to work most consistently. Create the conda environment as follows:
 
 ```shell
-conda env create --file environment.yml
+conda create -y -n linear_splatting python=3.8
 conda activate linear_splatting
+
+pip install torch==1.12.1+cu113 torchvision==0.13.1+cu113 -f https://download.pytorch.org/whl/torch_stable.html
+conda install cudatoolkit-dev=11.3 -c conda-forge
+
+pip install plyfile ninja opencv-python
+
+pip install submodules/diff-linear-rasterization
+pip install submodules/simple-knn
+
 ```
 
 ## Running
@@ -48,12 +57,12 @@ Optimizing a scene with standard parameters works as follows:
 ```shell
 python train.py -s <dataset path> -m <output path> 
 ```
-or with MCMC-based densification which tends to yield better results but requires specificying a number of primitives:
+or with MCMC-based densification which tends to yield better results but requires specifying a number of primitives:
 ```shell
 python train.py -s <dataset path> -m <output path> --cap_max <primitive capacity> --use_mcmc --densify_until_iter 25_000 --densification_interval 100
 ```
 
-Almost all command line arguments available in 3DGS should work the same way for LinPrim. We additionally some parameters e.g. to use MCMC-densification or adjust anti-aliasing filters.
+We add some additional parameters e.g. to use MCMC-densification or adjust anti-aliasing filters. Other parameters remain mostly unchanged.
 <details>
 <summary><span style="font-weight: bold;">New Argument Highlights</span></summary>
 
@@ -95,7 +104,7 @@ Almost all command line arguments available in 3DGS should work the same way for
   #### --load_allres
   When working with the multi-scale Blender datasets, loads every resolution level instead of only the highest.
   #### --debug
-  Enables debug mode if you experience erros. If the rasterizer fails, a ```dump``` file is created that you may forward to us in an issue so we can take a look.
+  Enables debug mode if you experience errors. If the rasterizer fails, a ```dump``` file is created.
   #### --debug_from
   Debugging is **slow**. You may specify an iteration (starting from 0) after which the above debugging becomes active.
   #### --iterations
@@ -157,7 +166,7 @@ Almost all command line arguments available in 3DGS should work the same way for
 
 ## Evaluation
 
-We added some additional functionality to the [eval script](full_eval.py), which should simplify working with any of datasets and scenes considered in the paper. Adding the path to a dataset will automatically run an evaluation for the respective scenes using the correct resolutions, train splits and background colors.
+We added some additional functionality to the [eval script](full_eval.py), which should simplify working with any of the datasets and scenes considered in the paper. Adding the path to a dataset will automatically run an evaluation for the respective scenes using the correct resolutions, train splits and background colors.
 
 Any arguments given to the evaluation script that are not known will be passed to the training script.
 
