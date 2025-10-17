@@ -158,7 +158,6 @@ We add some additional parameters e.g. to use MCMC-densification or adjust anti-
   #### --opacity_reg
   Used in MCMC-densification. Regularizes primitive opacity. ```0.01``` by default.  
 
-  TODO Mip-Splatting parameters
 </details>
 
 <br>
