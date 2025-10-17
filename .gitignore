@@ -1,0 +1,10 @@
+*.pyc
+.vscode
+output
+build
+tensorboard_3d
+screenshots
+*.dump
+*.txt
+*.log
+*.json
