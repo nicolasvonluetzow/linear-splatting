@@ -15,10 +15,10 @@ This release includes minor cleanups compared to the paper version, resulting in
 <section class="section" id="BibTeX">
   <div class="container is-max-desktop content">
     <h2 class="title">BibTeX</h2>
-    <pre><code>@article{von2025linprim,
+    <pre><code>@inproceedings{vonlinprim,
   title={LinPrim: Linear Primitives for Differentiable Volumetric Rendering},
   author={von L{\"u}tzow, Nicolas and Nie{\ss}ner, Matthias},
-  journal={arXiv preprint arXiv:2501.16312},
+  booktitle={The Thirty-ninth Annual Conference on Neural Information Processing Systems},
   year={2025}
 }</code></pre>
   </div>
